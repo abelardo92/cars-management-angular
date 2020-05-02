@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/api/register', 'UsersController@register');
+Route::post('/api/login', 'UsersController@login');
+
+Route::resource('/api.cars', 'CarsController');
