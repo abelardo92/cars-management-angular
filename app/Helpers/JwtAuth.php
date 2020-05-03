@@ -4,6 +4,7 @@ namespace App\Helpers;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Exception;
 use UnexpectedValueException;
 
 class JwtAuth {
@@ -40,14 +41,17 @@ class JwtAuth {
             $decoded = JWT::decode($jwt, $this->key, array('HS256'));
             $auth = is_object($decoded) && isset($decoded->sub) ? true : false;
 
-            if($getIdentity) {
+            if($getIdentity && isset($decoded) && is_object($decoded)) {
                 return $decoded;
             }
         } 
-        catch(UnexpectedValueException $e) {
-            $auth = false;
-        }
-        catch(UnexpectedValueException $e) {
+        // catch(UnexpectedValueException $e) {
+        //     $auth = false;
+        // }
+        // catch(UnexpectedValueException $e) {
+        //     $auth = false;
+        // }
+        catch(Exception $e) {
             $auth = false;
         }
 
