@@ -21,4 +21,6 @@ Route::get('/', function () {
 Route::post('/api/register', 'UsersController@register');
 Route::post('/api/login', 'UsersController@login');
 
-Route::resource('/api.cars', 'CarsController');
+Route::resource('/api/cars', 'CarsController',array(
+    'middleware' => 'jwtAuth'
+));
