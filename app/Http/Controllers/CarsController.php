@@ -86,15 +86,9 @@ class CarsController extends Controller
     }
 
     public function update($car_id, Request $request) {
-        // $jwtAuth = new JwtAuth();
-        // $hash = $request->header('Authorization', null);
         
         $json = $request->input('json', null);
-        // $params = json_decode($json);
         $params_array = json_decode($json,true);
-        
-        // $user = $jwtAuth->checkToken($hash, true);
-        
         $request->merge($params_array);
         
         try {
@@ -128,5 +122,17 @@ class CarsController extends Controller
         );
 
         return response()->json($data);   
+    }
+
+    public function destroy($car_id, Request $request) {
+        $car = Car::find($car_id);
+        $car->delete();
+
+        $data = array(
+            'car' => $car,
+            'status' => 'success',
+            'code' => 200,
+        );
+        return response()->json($data);
     }
 }
